@@ -3,4 +3,4 @@ rm output -rf
 mkdir output
 
 : Compile
-g++ main.cpp -o output/main.o
+g++ main.cpp cmds.cpp -Wno-write-strings -o output/main.o
