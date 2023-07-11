@@ -5,14 +5,19 @@
 
 int main() {
 	// Make variables
-	char* cmd = new char[10000];
+	char* cmd = new char[4096];
 	bool running = true;
 	pid_t child_pid;
 	int child_status;
 
+	// Customization stuff
+	char hostname[256];
+    gethostname(hostname, sizeof(hostname));
+	char* username = getenv("USER");
+
 	while(running) {
 		// Get input	
-		std::cout << "[placeholder]: ";
+		std::cout << "[" << username << "@" << hostname << "]: ";
 		std::cin >> cmd;
 
 		// Finish command
@@ -20,15 +25,18 @@ int main() {
 
 		// Make process
 		child_pid = fork();
-		// Do execution stuff
+		// Child Process
 		if(child_pid == 0) {
+			// Getting output
+			//TODO
+
 			// Execute
 			execvp(cmd, arguments);
 
 			// Exit if error
 			exit(1);
 		}
-		// Repeat
+		// Parent Process
 		else {
 			// Wait for program to finish
 			wait(&child_status);
